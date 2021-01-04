@@ -14,11 +14,12 @@ with open(file) as csvfile:
     #print(f"CSV Header:{csv_header}")
 
     #loop each row of data after the header
-    for row in csvreader:
-
+    for row in csvreader:   
+         
+        #Count number of rows to find total months
+        total_months = sum(1 for row in csvreader)
         
-        
-    #Define the function and have it accept the 'row' as its sole parameter
+        #Find sum
     
 
 
@@ -38,10 +39,10 @@ with open(file) as csvfile:
     #     if row[0] == max.SOMETHING...that is the : greatest_change 
     #           print(f'Greatest Increase in Profits: {row[0]} {row[1] )   
 
-print("Financial Analysis")
-print("-----------------------------")
-#print(f"Total Months: {total_months}")
-#print(f"Total: {total_profitloss}")
-print(f"Average Change: {average(profits)}")
-#print(f"Greatest Increase in Profits: {max_date} {max_profit}")
-#print(f"Greatest Decrease in Profits: {min_date} {min_profit}")
+        print("Financial Analysis")
+        print("-----------------------------")
+        print(f"Total Months: {total_months}")
+        #print(f"Total: {total_profitloss}")
+        #print(f"Average Change: {average(profits)}")
+        #print(f"Greatest Increase in Profits: {max_date} {max_profit}")
+        #print(f"Greatest Decrease in Profits: {min_date} {min_profit}")

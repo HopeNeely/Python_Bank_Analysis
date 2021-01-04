@@ -16,11 +16,15 @@ with open(file) as csvfile:
     #loop each row of data after the header
     for row in csvreader:   
          
-        #Count number of rows to find total months
+        #Sum of rows to find total months
         total_months = sum(1 for row in csvreader)
+
         
-        #Find sum
-    
+        #Find sum of values in row[1] to find total profit
+        total_profitloss = 0
+        for column in row[1:]:
+            total_profitloss += int(column)
+        
 
 
 
@@ -42,7 +46,7 @@ with open(file) as csvfile:
         print("Financial Analysis")
         print("-----------------------------")
         print(f"Total Months: {total_months}")
-        #print(f"Total: {total_profitloss}")
+        print(f"Total: {total_profitloss}")
         #print(f"Average Change: {average(profits)}")
         #print(f"Greatest Increase in Profits: {max_date} {max_profit}")
         #print(f"Greatest Decrease in Profits: {min_date} {min_profit}")

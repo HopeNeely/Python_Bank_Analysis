@@ -20,21 +20,20 @@ with open(file) as csvfile:
         total_months = sum(1 for row in csvreader)
 
         
-        #Find sum of values in row[1] to find total profit
+    #Find sum of values in row[1] to find total profit
         total_profitloss = 0
         for column in row[1:]:
             total_profitloss += int(column)
         
-
-
-
+        #
+    
         #Write a function that returns the arithmetic average
-#        def average(numbers):
-#            length = len(numbers)
-#            total = 0.0
-#            for number in numbers:
-#                total += number
-#            return total / length
+        #def average(numbers):
+        #    length = len(numbers)
+        #    total = 0.0
+        #    for number in numbers:
+        #        total += number
+        #    return total / length
 
 
 
@@ -47,6 +46,6 @@ with open(file) as csvfile:
         print("-----------------------------")
         print(f"Total Months: {total_months}")
         print(f"Total: {total_profitloss}")
-        #print(f"Average Change: {average(profits)}")
+        #print(f"Average Change: {average(change)}")
         #print(f"Greatest Increase in Profits: {max_date} {max_profit}")
         #print(f"Greatest Decrease in Profits: {min_date} {min_profit}")

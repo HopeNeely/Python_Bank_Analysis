@@ -14,6 +14,16 @@ with open(file) as csvfile:
     csv_header = next(csvreader)
     print(csv_header)
 
+    #define line number count
+
+    #lines=0
+
+    #li=[]
+    #candidate ={}
+    
+
+
+
     #loop through each row of data after the hearder
     for row in csvreader: 
 
@@ -32,8 +42,8 @@ with open(file) as csvfile:
 
         votes = [row[2]]
 
-        print(len(votes))
-        #print(total_votes)
+        #print(len(votes))
+        
 
         #Sum of rows to find total votes (SHOULD THIS BE A LIST???)
         
@@ -42,9 +52,9 @@ with open(file) as csvfile:
 
 
         #Print out results
-        #print("Election Results")
-        #print("----------------------------")
-        #print(f"Total Votes: {total_votes}")
+        print("Election Results")
+        print("----------------------------")
+        print(f"Total Votes: {len(votes)}")
 #        print("----------------------------")
 #        print(f"{winner}: {percent} {tally}")
 #        print(f"{secont}: {percent} {tally}")

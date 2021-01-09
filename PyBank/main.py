@@ -4,7 +4,7 @@ import csv
 # Store the file path associated with the PyBank Challenge
 file = os.path.join('Resources', 'budget_data.csv')
 
-#Create empty lists to hold calucaltions
+#Create empty lists to hold calucaltion
 profitloss = []
 
 net_change = []
@@ -13,7 +13,7 @@ net_change = []
 # using 1 instead of 0 accounts for starting the count after first_row
 total_months = 1
 
-#Open the file store the contents in the variable csv
+#Open the file and store the contents in the variable csv
 with open(file) as csvfile:
     #CSV reader specifies delimerter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter = ",") 
@@ -27,32 +27,30 @@ with open(file) as csvfile:
     #print(first_row)
 
     older_value = int(first_row[1])
-    
+
     #loop each row of data after the header
     for row in csvreader:  
         #Count rows as we iterate to find total_rows
         total_months += 1
 
-        #Adding to profitloss list
+        #Add values from row[1] to profitloss list
         value = int(row[1])
         profitloss.append(value)
         
+        #Find the sum of profitloss list and add in the first row that is missing
+        total_profitloss = sum(profitloss) + older_value
+        
+        #Find change in profitloss month to month
+        #Put values from profitlos and first row into list
+        ##profitloss_with_first_row = [older_value] + profitloss
 
-        net_change.append(net_change)
-
-        #Find sum of values in row[1] to find total profit
-        #create a list to hold profitloss
-        #profitloss = []
-        #for row in data:
-        #    value = int(row[1])
-        #    profitloss.append(value)
-
-       #Find profit change from month to month
-       #change = []
-       #for value in profitloss:
-
-
-       
+        ##monthly_change = profitloss_with_first_row - profitloss 
+        ##net_change.append(monthly_change)
+        #print(net_change)
+      
+        #Find average change in profit loss
+        ##average_change = sum(net_change) / len(net_change)
+        
            
 
 
@@ -76,7 +74,7 @@ with open(file) as csvfile:
 print("Financial Analysis")
 print("-----------------------------")
 print(f"Total Months: {total_months}")
-print(f"Total: {sum(profitloss)}")
-        #print(f"Average Change: {average(change)}")
+print(f"Total: {total_profitloss}")
+##print(f"Average Change: {average_change}")
         #print(f"Greatest Increase in Profits: {max_date} {max_profit}")
         #print(f"Greatest Decrease in Profits: {min_date} {min_profit}")

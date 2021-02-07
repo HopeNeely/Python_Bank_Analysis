@@ -7,15 +7,10 @@ file = os.path.join('Resources', 'budget_data.csv')
 #Create empty lists to hold calucaltion
 profitloss = []
 
-profitloss_with_row1 = []
-
-net_change = []
-
-
+date = []
 
 #Set the starting value for counting total_months: 
-# using 1 instead of 0 accounts for starting the count after first_row
-total_months = 1
+total_months = 0
 
 #Open the file and store the contents in the variable csv
 with open(file) as csvfile:
@@ -25,15 +20,13 @@ with open(file) as csvfile:
     #Read the header row first
     csv_header = next(csvreader)  
     #print(f"CSV Header:{csv_header}")
-    
-    #Read the first row of data
-    first_row = next(csvreader)
-    #print(first_row)
 
-    older_value = int(first_row[1])
 
     #loop each row of data after the header
     for row in csvreader:  
+        # add dates to empty dates list as we iterate
+        date.append(row[0])
+
         #Count rows as we iterate to find total_rows
         total_months += 1
 
@@ -42,38 +35,79 @@ with open(file) as csvfile:
         profitloss.append(value)
 
         #Find the sum of profitloss list and add in the first row that is missing
-        total_profitloss = sum(profitloss) + older_value
+        total_profitloss = sum(profitloss)
             
-        #Find change in profitloss month to month
-        #Put values from profitloss and first row into list
-        profitloss_with_first_row = [older_value] + profitloss
-
-    monthly_change = [profitloss_with_first_row[i + 1] - profitloss_with_first_row[i] for i in range(len(profitloss_with_first_row)-1)]
-    net_change.append(monthly_change)
-
+    # Calculate the monthly change in profit/loss        
+    monthly_change = [profitloss[i + 1] - profitloss[i] for i in range(len(profitloss)-1)]
+      
     #Find average change in profit loss
-    #average_change = sum(net_change) / len(net_change)
+    average_change = sum(monthly_change) / len(monthly_change)
 
     #Find max change in profits
-    max_change = max(net_change)
-    print(max_change)
-
-    #pull the date of max change
-
-
+    max_change = max(monthly_change)
+    #print(max_change)
 
     # Find min change in profits
-    #min_change = min(net_change)
+    min_change = min(monthly_change)
+    
+    
+# pull the date of max change and date of min change
+# start by zip-ing my lists         
+new_profitloss_csv = zip(date, profitloss, monthly_change)
+
+# Set variable for output file
+output_file = os.path.join('analysis', 'new_budget_data.csv')
+
+#  Open the output file
+with open(output_file, "w", newline="") as datafile:
+    writer = csv.writer(datafile)
+
+    # Write the header row
+    writer.writerow(["Date", "Profit/Loss", "Change in Profit/Loss"])
+
+    # Write in zipped rows
+    writer.writerows(new_profitloss_csv)
+
+found = False
+
+#Open the output file to find max and min profit/loss dates
+with open(output_file) as csvfile:
+    #CSV reader specifies delimerter and variable that holds contents
+    csvreader1 = csv.reader(csvfile, delimiter = ",") 
+
+    #Read the header row first
+    output_header = next(csvreader1) 
+    #print(output_header)  
+
+ 
+     #loop each row of data after the header looking for min and max to find date
+    for row in csvreader1:  
+        if row[2] == max_change:
+            print(str(row[0]))
+
+            found = True
+            break
 
 
-    # pull the date of min change
-           
+        
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 print("Financial Analysis")
 print("-----------------------------")
 print(f"Total Months: {total_months}")
 print(f"Total: {total_profitloss}")
-#print(f"Average Change: {average_change}")
-#print(f"Greatest Increase in Profits: {max_date} {max_change}")
-#print(f"Greatest Decrease in Profits: {min_date} {min_change}")
+print(f"Average Change: {average_change}")
+print(f"Greatest Increase in Profits: max_date {max_change}")
+print(f"Greatest Decrease in Profits: min_date {min_change}")

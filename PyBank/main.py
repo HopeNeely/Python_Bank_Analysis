@@ -7,7 +7,11 @@ file = os.path.join('Resources', 'budget_data.csv')
 #Create empty lists to hold calucaltion
 profitloss = []
 
+profitloss_with_row1 = []
+
 net_change = []
+
+
 
 #Set the starting value for counting total_months: 
 # using 1 instead of 0 accounts for starting the count after first_row
@@ -36,45 +40,40 @@ with open(file) as csvfile:
         #Add values from row[1] to profitloss list
         value = int(row[1])
         profitloss.append(value)
-        
+
         #Find the sum of profitloss list and add in the first row that is missing
         total_profitloss = sum(profitloss) + older_value
-        
+            
         #Find change in profitloss month to month
-        #Put values from profitlos and first row into list
-        ##profitloss_with_first_row = [older_value] + profitloss
+        #Put values from profitloss and first row into list
+        profitloss_with_first_row = [older_value] + profitloss
 
-        ##monthly_change = profitloss_with_first_row - profitloss 
-        ##net_change.append(monthly_change)
-        #print(net_change)
-      
-        #Find average change in profit loss
-        ##average_change = sum(net_change) / len(net_change)
-        
+    monthly_change = [profitloss_with_first_row[i + 1] - profitloss_with_first_row[i] for i in range(len(profitloss_with_first_row)-1)]
+    net_change.append(monthly_change)
+
+    #Find average change in profit loss
+    #average_change = sum(net_change) / len(net_change)
+
+    #Find max change in profits
+    max_change = max(net_change)
+    print(max_change)
+
+    #pull the date of max change
+
+
+
+    # Find min change in profits
+    #min_change = min(net_change)
+
+
+    # pull the date of min change
            
 
-
-#
- #           print(change)
-        #Write a function that returns the arithmetic average
-        #def average(numbers):
-        #    length = len(numbers)
-        #    total = 0.0
-        #    for number in numbers:
-        #        total += number
-        #    return total / length
-
-        
-
-    #Look for greatest increase in profits. Then print with date and amount.
-    # for row in csvreader: 
-    #     if row[0] == max.SOMETHING...that is the : greatest_change 
-    #           print(f'Greatest Increase in Profits: {row[0]} {row[1] )   
 
 print("Financial Analysis")
 print("-----------------------------")
 print(f"Total Months: {total_months}")
 print(f"Total: {total_profitloss}")
-##print(f"Average Change: {average_change}")
-        #print(f"Greatest Increase in Profits: {max_date} {max_profit}")
-        #print(f"Greatest Decrease in Profits: {min_date} {min_profit}")
+#print(f"Average Change: {average_change}")
+#print(f"Greatest Increase in Profits: {max_date} {max_change}")
+#print(f"Greatest Decrease in Profits: {min_date} {min_change}")

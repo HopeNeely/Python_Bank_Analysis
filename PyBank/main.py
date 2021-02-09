@@ -6,13 +6,9 @@ file = os.path.join('Resources', 'budget_data.csv')
 
 #Create empty lists to hold calucaltion
 profitloss = []
-
 profitloss_with_first_row = []
-
 date = []
-
 change_in_profitloss = []
-
 change_list = []
 
 #Set the starting value 1 to count the first row that was taken out for counting total_months: 
@@ -72,8 +68,8 @@ max_change = max(change_list)
 min_change = min(change_list)
     
     
-# pull the date of max change and date of min change
-# start by zip-ing my lists         
+## Find the date of max change and date of min change
+# start by zip-ing my lists for the new csv file         
 new_profitloss_csv = zip(date, profitloss_with_first_row, change_in_profitloss)
 
 # Set variable for output file
@@ -109,6 +105,24 @@ with open(output_file) as csvfile:
             min_date = row[0]
 
 
+# Write text file with analysis
+output_text = os.path.join('analysis', 'budget_analysis.txt')
+
+#  Open the output file
+with open(output_text, "w") as text_file:
+
+    text_file.write(f"Financial Analysis \n"
+    "-----------------------------\n"
+    f"Total Months: {total_months}\n"
+    f"Total: ${total_profitloss}\n"
+    f"Average Change: ${average_change:.2f}\n"
+    f"Greatest Increase in Profits: {max_date} (${max_change})\n"
+    f"Greatest Decrease in Profits: {min_date} (${min_change})")
+
+text_file.close()
+
+
+# Print analysis in terminal
 print("Financial Analysis")
 print("-----------------------------")
 print(f"Total Months: {total_months}")

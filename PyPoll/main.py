@@ -125,10 +125,10 @@ with open(output_text, "w") as text_file:
     f"O'Tooley: {otooley_percent:.3f}% ({otooley_votes})\n"
     "----------------------------\n"
     f"Winner: {winner}\n"
-    "----------------------------\n"
+    "----------------------------\n")
 text_file.close()
 
-# Print out results to terminal
+# Print results in terminal
 print("Election Results")
 print("----------------------------")
 print(f"Total Votes: {total_votes}")

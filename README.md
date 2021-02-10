@@ -15,13 +15,9 @@ The final script is both printed to the terminal and exported a text file with t
 PyPoll consists of a vote counting process in a fictional small, rural town. The set of poll data given is called [election_data.csv](PyPoll/Resources/election_data.csv). The dataset is composed of three columns: `Voter ID`, `County`, and `Candidate`. The goal is to create a Python script that analyzes the votes and calculates each of the following:
 
   * The total number of votes cast
-
   * A complete list of candidates who received votes
-
   * The percentage of votes each candidate won
-
   * The total number of votes each candidate won
-
   * The winner of the election based on popular vote.
 
 Again, the final script is both printed to the terminal and exported a text file with the results.

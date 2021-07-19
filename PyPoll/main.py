@@ -1,49 +1,42 @@
 import os
 import csv
 
-# Store the file path associated with the PyPoll Challenge
+# Store the file path.
 file = os.path.join('Resources', 'election_data.csv')
 
-# Set the starting value for my vote counts
+# Set the starting value for my vote counts.
 total_votes = 0
-
 khan_votes = 0
-
 correy_votes = 0
-
 li_votes = 0
-
 otooley_votes = 0
 
 
-# Creade Variable to hold list of candidates who recieved votes
-candidates = []
+# Create dictionary to hold results. 
+results = {
+    'candidates': [],
+    'candidate_votes': [],
+    'candidate_percent': []
+}
 
-candidate_votes = []
-
-candidate_percent = []
-
-
-# Open the file using CSV module
+# Open and read file.
 with open(file) as csvfile:
     
-    # CSV reader specifies delimeter and variable that holds content
     csvreader = csv.reader(csvfile, delimiter = ",")
 
-    # Read the first header row first
+    # Read and remove header row.
     csv_header = next(csvreader)
-    #print(csv_header)
 
-    # loop through each row of data after the header
+    # Loop through each row after header.
     for row in csvreader:  
         # Count rows as we iterate to find total_votes
         total_votes += 1
 
-        # Find unique names for canditates in row[2] 
-        if row[2] not in candidates:
-            candidates.append(row[2])
-
-        # Count each candidates vote   ### It would be nice have write a function for this. 
+        # Find unique names for candidates in row[2] 
+        if row[2] not in results['candidates']:
+            results['candidates'].append(row[2])
+                   
+        # Count each candidates vote. 
         if row[2] == 'Khan':
             khan_votes += 1
 
@@ -57,57 +50,38 @@ with open(file) as csvfile:
             otooley_votes += 1
 
 
-#print(candidates)
+# Append candidate vote count to candidate_votes.
+results['candidate_votes'].append(khan_votes)
+results['candidate_votes'].append(correy_votes)
+results['candidate_votes'].append(li_votes)
+results['candidate_votes'].append(otooley_votes)
 
-# Append candidate vote count to candidate_vote list
-candidate_votes.append(khan_votes)
-candidate_votes.append(correy_votes)
-candidate_votes.append(li_votes)
-candidate_votes.append(otooley_votes)
-#print(candidate_votes)
+# Calculate percentages and append to candidate_percent.
+for x in results['candidate_votes']:
+    percent = x / total_votes * 100
+    results['candidate_percent'].append(percent)
 
-# Calulate the percentage of votes    
-khan_percent = khan_votes / total_votes * 100
-correy_percent = correy_votes / total_votes * 100
-li_percent = li_votes / total_votes * 100
-otooley_percent = otooley_votes / total_votes * 100
-        
-# Append candidate percentatages to candidate percent list
-candidate_percent.append(khan_percent)
-candidate_percent.append(correy_percent)
-candidate_percent.append(li_percent)
-candidate_percent.append(otooley_percent)
-#print(candidate_percent)
+# Find winner_vote and name of winner.
+winner_vote = max(results['candidate_votes'])
 
-# zip poll results         
-poll = zip(candidates, candidate_votes, candidate_percent)
+for index, value in enumerate(results['candidate_votes']): 
+    if results['candidate_votes'][index] == winner_vote:
+        winner_index = index
+   
+winner = results['candidates'][winner_index]
+winner_percent = results['candidate_percent'][winner_index]
 
-# save the output csv file path
-output_csv = os.path.join('analysis', 'poll.csv')
+second = results['candidates'][1]
+second_votes = results['candidate_votes'][1]
+second_percent = results['candidate_percent'][1]
 
-# open the output file, create a header row, and then write the zipped object to the csv
-with open(output_csv, "w", newline='') as datafile:
-    writer = csv.writer(datafile)
+third = results['candidates'][2]
+third_votes = results['candidate_votes'][2]
+third_percent = results['candidate_percent'][2]
 
-    writer.writerow(["Candidate", "Votes Won", "Percentage"])
-
-    writer.writerows(poll)
-
-#Open the output file to find max and min profit/loss dates
-with open(output_csv) as csvfile:
-    #CSV reader specifies delimerter and variable that holds contents
-    csvreader1 = csv.reader(csvfile, delimiter = ",") 
-
-    #Read the header row first
-    output_header = next(csvreader1) 
-    #print(output_header)  
-
-    # loop each row of data after the header looking for min and max to find date
-    for row in csvreader1: 
-        if row[1] == str(max(candidate_votes)): 
-            winner = row[0]
-            winner_vote = row[1]
-            winner_percent = float(row[2])
+forth = results['candidates'][3]
+forth_votes = results['candidate_votes'][3]
+forth_percent = results['candidate_percent'][3]
 
 # Write text file with analysis
 output_text = os.path.join('analysis', 'poll_analysis.txt')
@@ -120,9 +94,9 @@ with open(output_text, "w") as text_file:
     f"Total Votes: {total_votes} \n"
     "----------------------------\n"
     f"{winner}: {winner_percent:.3f}% ({winner_vote})\n"
-    f"Correy: {correy_percent:.3f}% ({correy_votes})\n"
-    f"Li: {li_percent:.3f}% ({li_votes})\n"
-    f"O'Tooley: {otooley_percent:.3f}% ({otooley_votes})\n"
+    f"{second}: {second_percent:.3f}% ({second_votes})\n"
+    f"{third}: {third_percent:.3f}% ({third_votes})\n"
+    f"{forth}: {forth_percent:.3f}% ({forth_votes})\n"
     "----------------------------\n"
     f"Winner: {winner}\n"
     "----------------------------\n")
@@ -134,9 +108,9 @@ print("----------------------------")
 print(f"Total Votes: {total_votes}")
 print("----------------------------")
 print(f"{winner}: {winner_percent:.3f}% ({winner_vote})")
-print(f"Correy: {correy_percent:.3f}% ({correy_votes})")
-print(f"Li: {li_percent:.3f}% ({li_votes})")
-print(f"O'Tooley: {otooley_percent:.3f}% ({otooley_votes})")
+print(f"{second}: {second_percent:.3f}% ({second_votes})")
+print(f"{third}: {third_percent:.3f}% ({third_votes})")
+print(f"{forth}: {forth_percent:.3f}% ({forth_votes})")
 print("----------------------------")
 print(f"Winner: {winner}")
 print("----------------------------")

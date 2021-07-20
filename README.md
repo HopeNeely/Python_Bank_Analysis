@@ -1,7 +1,7 @@
-# python-challenge
+# Python-Challenge
 This challenge uses python to analyze two different situations: PyBank and PyPoll. 
 
-PyBank is an analysis of simple financial records of a fictional company.  The financial data given is called [budget_data.csv](PyBank/Resources/budget_data.csv). The dataset is composed of two columns: `Date` and `Profit/Losses`. The goal is to create a Python script that analyzes the records to calculate each of the following:
+PyBank is an analysis of simple financial records of a fictional company.  The given financial data is called [budget_data.csv](PyBank/Resources/budget_data.csv). The dataset is composed of two columns: `Date` and `Profit/Losses`. The goal is to create a Python script that analyzes the records to calculate each of the following:
 
   * The total number of months included in the dataset
   * The net total amount of "Profit/Losses" over the entire period
